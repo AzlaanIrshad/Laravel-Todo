@@ -30,4 +30,38 @@ class TodoController extends Controller
         $todo->save();
         return redirect()->route('todo.index');
    }
+
+    public function edit($id) {
+          $todo = Todo::find($id);
+          return view('edit', ['todo' => $todo]);
+    }
+
+    public function show() {
+        $todos = Todo::all();
+        return view('index', ['todos' => $todos]);
+    }
+
+    public function update(Request $request) {
+        
+        $todo = Todo::find($request->id);
+
+        $todo->todo = $request->todo;
+        $todo->time = $request->deadline;
+        $todo->priority = $request->priority;
+        if ($request->completed == 'completed') {
+            $todo->completed = true;
+        } else {
+            $todo->completed = false;
+        }
+        $todo->save();
+        return redirect()->route('todo.index');
+    }
+
+    public function delete($id) {
+        $todo = Todo::find($id);
+        $todo->delete();
+        return redirect()->route('todo.index');
+    }
+
+
 }

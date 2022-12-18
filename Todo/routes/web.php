@@ -18,16 +18,15 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/todo', [TodoController::class, 'index'])->name('todo.index');
+Route::get('/todo', [TodoController::class, 'show'])->name('todo.index');
 
 //create routes
 Route::get('/todo/create', [TodoController::class, 'create'])->name('todo.create');
 Route::post('/todo/createRequest', [TodoController::class, 'createRequest'])->name('todo.createRequest');
 
 //update routes
-Route::get('/todo/update/{id}', [TodoController::class, 'update'])->name('todo.update');
-Route::post('/todo/updateRequest', [TodoController::class, 'updateRequest'])->name('todo.updateRequest');
+Route::get('/todo/update/{id}', [TodoController::class, 'edit'])->name('todo.edit');
+Route::post('/todo/updateRequest', [TodoController::class, 'update'])->name('todo.updateRequest');
 
-//delete routes
+//delete route
 Route::get('/todo/delete/{id}', [TodoController::class, 'delete'])->name('todo.delete');
-Route::post('/todo/deleteRequest', [TodoController::class, 'deleteRequest'])->name('todo.deleteRequest');
