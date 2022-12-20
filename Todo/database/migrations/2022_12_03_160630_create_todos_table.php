@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('time');
             $table->integer('priority');
             $table->boolean('completed');
-            //$table->integer('user_id');
+            $table->integer('user_id')->unsigned();
         });
     }
     public $timestamps = false;

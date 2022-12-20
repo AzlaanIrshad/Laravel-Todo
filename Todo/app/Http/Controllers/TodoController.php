@@ -7,8 +7,8 @@ use Illuminate\Http\Request;
 class TodoController extends Controller
 {
    public function index() {
-    $todo = Todo::all();
-      return view('todo', ['todo' => $todo]);
+    $todos = Todo::where('user_id', auth()->user()->id)->get();
+      return view('todo', ['todos' => $todos]);
    }
 
    public function create() {
@@ -26,7 +26,7 @@ class TodoController extends Controller
         } else {
             $todo->completed = false;
         }
-        //$todo->user_id = $request->user_id;
+        $todo->user_id = auth()->user()->id;
         $todo->save();
         return redirect()->route('todo.index');
    }
@@ -34,11 +34,6 @@ class TodoController extends Controller
     public function edit($id) {
           $todo = Todo::find($id);
           return view('edit', ['todo' => $todo]);
-    }
-
-    public function show() {
-        $todos = Todo::all();
-        return view('index', ['todos' => $todos]);
     }
 
     public function update(Request $request) {
